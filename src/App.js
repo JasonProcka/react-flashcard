@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import Radium from 'radium'
 // components
 import Flashcard from './components/Flashcard'
+import CreateCard from './components/CreateCard'
 import Shuffle from './components/Shuffle'
+import CardList from './components/CardList'
 
 class App extends Component {
   constructor(props) {
@@ -45,8 +47,6 @@ class App extends Component {
       this.shuffleCards()
     } else {
       this.setState({ currentCard: newCard })
-
-      console.log(this.state.currentCard)
     }
 
   }
@@ -56,9 +56,11 @@ class App extends Component {
       <div className="App" style={appStyles.flashcard}>
         <div className="cardTable" style={appStyles.table}>
           <Flashcard word={this.state.currentCard.word} match={this.state.currentCard.match} />
-          <div className="shuffle-container" style={shuffleStyles.container}>
-            <Shuffle shuffleCards={this.shuffleCards} />
+          <div className="button-container" style={buttonStyles.container}>
+            <CreateCard style={buttonStyles.createCard} />
+            <Shuffle shuffleCards={this.shuffleCards} style={buttonStyles.shuffleCards}/>
           </div>
+          <CardList cards={this.state.cards} />
         </div>
       </div>
     )
@@ -80,12 +82,18 @@ var appStyles = {
   }
 }
 
-var shuffleStyles = {
+var buttonStyles = {
   container: {
     textAlign: 'left',
-    marginTop: 50,
+    marginTop: 30,
     fontWeight: 400,
     WebkitFontSmoothing: 'antialiased'
+  },
+  createCard: {
+    marginRight: 10
+  },
+  shuffleCards: {
+    
   }
 }
 

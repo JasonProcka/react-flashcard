@@ -1,29 +1,30 @@
 import React, { Component } from 'react'
 import Radium from 'radium'
 
-class Shuffle extends Component {
+class CreateCard extends Component {
 	render() {
-		return ( 
+		return (
 			<div style={mainStyles.container}>
-				<a onClick={this.props.shuffleCards} role="button" style={shuffleStyles}>Shuffle</a>
+				<a onClick={this.props.shuffleCards} role="button" style={createStyles}>Create</a>
 			</div>
 		)
 	}
 }
 
-Shuffle = Radium(Shuffle)
+CreateCard = Radium(CreateCard)
 
 var mainStyles = {
 	container: {
-		display: 'inline-block'
+		display: 'inline-block',
+		marginRight: 10
 	}
 }
 
-var shuffleStyles = {
+var createStyles = {
 	padding: '10px 14px',
 	color: 'white',
 	textDecoration: 'none',
-	backgroundColor: '#2ecc71',
+	backgroundColor: '#3498db',
 	borderRadius: 4,
 	':hover': {
 		cursor: 'pointer'
@@ -32,4 +33,4 @@ var shuffleStyles = {
 	boxShadow: '0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.12)'
 }
 
-export default Shuffle
+export default CreateCard
