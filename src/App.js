@@ -18,7 +18,7 @@ class App extends Component {
         {id: 3, word: 'Word 3', match: 'Match 3'},
         {id: 4, word: 'Word 4', match: 'Match 4'},
         {id: 5, word: 'Word 5', match: 'Match 5'},
-        {id: 6, word: 'Word 6', match: 'Match 6'}
+        {id: 6, word: 'Word 6', match: 'Match 6 asd'}
       ],
       currentCard: {}
     }
