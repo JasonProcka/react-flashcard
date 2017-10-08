@@ -8,7 +8,7 @@ class App extends Component {
   constructor(props) {
     super(props)
 
-    this.drawRandomCard = this.shuffleCards.bind(this)
+    this.drawRandomCard = this.drawRandomCard.bind(this)
     this.shuffleCards = this.shuffleCards.bind(this)
 
     this.state = {
@@ -18,7 +18,7 @@ class App extends Component {
         {id: 3, word: 'Word 3', match: 'Match 3'},
         {id: 4, word: 'Word 4', match: 'Match 4'},
         {id: 5, word: 'Word 5', match: 'Match 5'},
-        {id: 6, word: 'Word 6', match: 'Match 6 asd'}
+        {id: 6, word: 'Word 6', match: 'Match 6'}
       ],
       currentCard: {}
     }
@@ -34,13 +34,21 @@ class App extends Component {
   }
 
   drawRandomCard(currentCards) {
-    console.log('hey')
     const randomCard = currentCards[Math.floor(Math.random() * currentCards.length)]
     return randomCard
   }
 
   shuffleCards() {
-    this.setState({ currentCard: this.drawRandomCard(this.state.cards) }) 
+    const newCard = this.drawRandomCard(this.state.cards) 
+
+    if (newCard === this.state.currentCard) {
+      this.shuffleCards()
+    } else {
+      this.setState({ currentCard: newCard })
+
+      console.log(this.state.currentCard)
+    }
+
   }
 
   render() {
@@ -65,17 +73,19 @@ var appStyles = {
   flashcard: {
     color: 'black',
     fontFamily: 'sans-serif',
-    marginTop: 220
+    margin: '60px'
   },
   cardTable: {
-    marginTop: '220px'
+    
   }
 }
 
 var shuffleStyles = {
   container: {
-    textAlign: 'center',
-    marginTop: 50
+    textAlign: 'left',
+    marginTop: 50,
+    fontWeight: 400,
+    WebkitFontSmoothing: 'antialiased'
   }
 }
 

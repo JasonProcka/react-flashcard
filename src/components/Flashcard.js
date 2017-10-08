@@ -6,8 +6,7 @@ class Flashcard extends Component {
 		return (
 			<div className="Flashcard" style={flashcardStyles.outer}>
 				<div className="Flashcard-inner" style={flashcardStyles.inner}>
-					<h3 style={flashcardStyles.cardLabel}>{this.props.word}</h3>
-					<h3 style={flashcardStyles.cardLabel}>{this.props.match}</h3>
+					<h3 style={flashcardStyles.cardLabel}>{this.props.word} : {this.props.match}</h3>
 				</div>
 			</div>
 		)
@@ -21,17 +20,19 @@ var flashcardStyles = {
 		width: 500,
 		height: 300,
 		backgroundColor: '#FFF',
-		boxShadow: '0 4px 3px rgba(0,0,0,0.2)',
-		display: 'table',
-		padding: '20px',
-		margin: 'auto'
+		boxShadow: '0 4px 3px rgba(0,0,0,0.2)'
 	},
 	inner: {
-		display: 'table-cell',
-		verticalAlign: 'middle',
+		width: '100%',
+		height: '100%',
+		position: 'relative',
 		textAlign: 'center'
 	},
 	cardLabel: {
+		top: '50%',
+		left: '50%',
+		transform: 'translate(-50%, -50%)',
+		position: 'relative',
 		margin: 0
 	}
 }
