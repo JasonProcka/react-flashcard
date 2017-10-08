@@ -5,7 +5,11 @@ class CreateCard extends Component {
 	render() {
 		return (
 			<div style={mainStyles.container}>
-				<a onClick={this.props.shuffleCards} role="button" style={createStyles}>Create</a>
+				<form>
+					<input type="text" text="Word" />
+					<input type="text" text="Match" />
+					<input type="submit" value="Create" style={createStyles} />
+				</form>
 			</div>
 		)
 	}

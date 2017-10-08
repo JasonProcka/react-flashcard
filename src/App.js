@@ -43,7 +43,7 @@ class App extends Component {
   shuffleCards() {
     const newCard = this.drawRandomCard(this.state.cards) 
 
-    if (newCard === this.state.currentCard) {
+    if (newCard === this.state.currentCard) { // prevent repeat cards
       this.shuffleCards()
     } else {
       this.setState({ currentCard: newCard })
