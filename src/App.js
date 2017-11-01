@@ -1,33 +1,58 @@
 import React, { Component } from 'react'
 import Radium from 'radium'
+// firebase
+import firebase from 'firebase/app'
+import 'firebase/database'
+import { FB_CONFIG } from './config/fb_config'
 // components
 import Flashcard from './components/Flashcard'
-import CreateCard from './components/CreateCard'
 import Shuffle from './components/Shuffle'
-import CardList from './components/CardList'
 
 class App extends Component {
   constructor(props) {
     super(props)
 
+    // firebase
+    this.app = firebase.initializeApp(FB_CONFIG) // configuring our firebase app
+    this.database = this.app.database() // grabbing our database
+    this.flashcards = this.database.ref().child('cards') // grabbing our cards
+
+    // function bindings
     this.drawRandomCard = this.drawRandomCard.bind(this)
     this.shuffleCards = this.shuffleCards.bind(this)
 
     this.state = {
-      cards: [
-        {id: 1, word: 'Word 1', match: 'Match 1'},
-        {id: 2, word: 'Word 2', match: 'Match 2'},
-        {id: 3, word: 'Word 3', match: 'Match 3'},
-        {id: 4, word: 'Word 4', match: 'Match 4'},
-        {id: 5, word: 'Word 5', match: 'Match 5'},
-        {id: 6, word: 'Word 6', match: 'Match 6'}
-      ],
+      cards: [],
       currentCard: {}
     }
   }
 
   componentDidMount() {
+
     const currentCards = this.state.cards
+
+    this.flashcards.on('child_added', snap => {
+      currentCards.push({
+        id: snap.key,
+        word: snap.val().word,
+        match: snap.val().match
+      })
+    })
+
+    // Pushing to firebase
+
+    // var flashcardPush = this.flashcards.push()
+    // var flashcardKey = flashcardPush.key
+
+    // var genCard = { // Our new card being pushed
+    //   id: flashcardKey,
+    //   word: 'word92873',
+    //   match: 'match29373'
+    // }
+
+    // this.flashcards.push(genCard)
+
+    console.log('currentCards before state:', currentCards)
 
     this.setState({
       cards: currentCards,
@@ -36,7 +61,18 @@ class App extends Component {
   }
 
   drawRandomCard(currentCards) {
-    const randomCard = currentCards[Math.floor(Math.random() * currentCards.length)]
+    console.log('drawRandomCard(currentCards): ', currentCards) // returns the currentCards array of objects properly
+
+    console.log('currentCards.length:', currentCards.length)
+
+    console.log('index of currentCards:', currentCards[0]) // attempting to index the array... doesn't work period 'undefined'
+
+    const randomCard = currentCards[Math.floor(Math.random() * (currentCards.length))] // where the error persists
+
+    console.log(Math.floor(Math.random() * (currentCards.length))) // just to see what we get... 0
+
+    console.log('randomCard', randomCard) // logs randomCard as 'undefined'
+
     return randomCard
   }
 
@@ -55,12 +91,10 @@ class App extends Component {
     return (
       <div className="App" style={appStyles.flashcard}>
         <div className="cardTable" style={appStyles.table}>
-          <Flashcard word={this.state.currentCard.word} match={this.state.currentCard.match} />
+          <Flashcard />
           <div className="button-container" style={buttonStyles.container}>
-            <CreateCard style={buttonStyles.createCard} />
             <Shuffle shuffleCards={this.shuffleCards} style={buttonStyles.shuffleCards}/>
           </div>
-          <CardList cards={this.state.cards} />
         </div>
       </div>
     )
